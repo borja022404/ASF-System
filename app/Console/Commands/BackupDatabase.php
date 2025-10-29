@@ -32,9 +32,36 @@ class BackupDatabase extends Command
         $dbDatabase = config("database.connections.$dbConnection.database");
         $dbUsername = config("database.connections.$dbConnection.username"); // root
         $dbPassword = config("database.connections.$dbConnection.password"); // root
-        $mysqldump = 'C:\\xampp\\mysql\\bin\\mysqldump.exe';
+
+        // Cross-platform mysqldump detection
+        $mysqldump = 'mysqldump'; // Default to system PATH
+
+        // Try to detect mysqldump location based on OS
+        if (PHP_OS_FAMILY === 'Windows') {
+            // Check common Windows paths
+            $possiblePaths = [
+                'C:\\xampp\\mysql\\bin\\mysqldump.exe',
+                'C:\\wamp\\bin\\mysql\\mysql8.0.25\\bin\\mysqldump.exe',
+                'C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump.exe',
+            ];
+
+            foreach ($possiblePaths as $path) {
+                if (file_exists($path)) {
+                    $mysqldump = $path;
+                    break;
+                }
+            }
+        }
+
         $passwordPart = $dbPassword ? "--password={$dbPassword}" : "";
-        $command = "cmd /c \"$mysqldump --user={$dbUsername} $passwordPart --host={$dbHost} --port={$dbPort} {$dbDatabase} > {$storagePathSql}\"";
+
+        // Cross-platform command construction
+        if (PHP_OS_FAMILY === 'Windows') {
+            $command = "cmd /c \"$mysqldump --user={$dbUsername} $passwordPart --host={$dbHost} --port={$dbPort} {$dbDatabase} > {$storagePathSql}\"";
+        } else {
+            // Linux/Unix command
+            $command = "$mysqldump --user={$dbUsername} $passwordPart --host={$dbHost} --port={$dbPort} {$dbDatabase} > {$storagePathSql}";
+        }
 
         $returnVar = null;
         $output = null;
