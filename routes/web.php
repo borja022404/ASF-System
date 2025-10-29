@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-// admin routes here 
+// admin routes here
 Route::middleware(['auth', 'can:admin-access'])->prefix('admin')->name('admin.')->group(function () {
     Route::controller(UserController::class)->prefix('users')->name('users.')->group(function () {
         Route::get('/', 'index')->name('index');
