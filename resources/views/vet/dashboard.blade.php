@@ -77,7 +77,7 @@
                     </div>
                     <div class="card-content">
                         <h5 class="card-title">Resolved Reports</h5>
-                        <div class="card-number">{{ $resovled->count() ?? 0 }}</div>
+                        <div class="card-number">{{ $resolved->count() ?? 0 }}</div>
                         <p class="card-description">Cases you've successfully handled</p>
                     </div>
                     <div class="card-arrow">

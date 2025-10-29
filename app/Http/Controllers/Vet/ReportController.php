@@ -17,7 +17,19 @@ class ReportController extends Controller
 
     public function index(Request $request)
     {
-        $query = Report::with(['user', 'symptoms']);
+        $vet = Auth::user();
+
+        $query = Report::with(['user', 'symptoms'])->where(function ($query) use ($vet) {
+            $query->where('report_status', '!=', 'resolved') // show all reports except resolved ones (unfiltered)
+                ->orWhere(function ($query) use ($vet) {
+                    $query->where('report_status', 'resolved') // for resolved ones
+                        ->whereHas('vetAssessments', function ($subQuery) use ($vet) {
+                            $subQuery->where('assessor_id', $vet->id); // only their own assessments
+                        });
+                });
+        });
+
+
 
         // Filter by Report ID
         if ($request->filled('report_id')) {
@@ -62,7 +74,11 @@ class ReportController extends Controller
 
     public function UnderReview(Request $request)
     {
-        $query = Report::with('user')->where('report_status', 'under_inspection');
+        $vet = Auth::user();
+
+        $query = Report::where('report_status', 'under_inspection')->whereHas('vetAssessments', function ($query) use ($vet) {
+            $query->where('assessor_id', $vet->id);
+        });
 
         if ($request->filled('report_id')) {
             $query->where('report_id', 'like', '%' . $request->report_id . '%');
@@ -185,6 +201,7 @@ class ReportController extends Controller
     public function highRisk()
     {
         $highRiskReports = Report::where('risk_level', 'high')
+            ->where('report_status', '!=', 'resolved')
             ->latest()
             ->get();
 
@@ -194,8 +211,14 @@ class ReportController extends Controller
 
     public function resolved()
     {
-        $resolved = Report::where('report_status', 'resolved')->latest()->get();
-        return view('Vet.reports.resolved', compact('resolved'));
+        $vet = Auth::user();
+        $resolved = Report::where('report_status', 'resolved')
+            ->whereHas('vetAssessments', function ($query) use ($vet) {
+                $query->where('assessor_id', $vet->id);
+            })
+            ->latest()
+            ->get();
+        return view('vet.reports.resolved', compact('resolved'));
     }
 
 }

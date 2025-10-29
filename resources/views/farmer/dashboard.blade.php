@@ -59,7 +59,7 @@
                         <i class="bi bi-check-circle text-success"></i>
                     </div>
                     <div class="stats-content">
-                        <div class="stats-number">{{ $resovled->count() ?? 0 }}</div>
+                        <div class="stats-number">{{ $resolved->count() ?? 0 }}</div>
                         <p class="stats-label">Resolved</p>
                         <small class="stats-desc">Completed cases</small>
                     </div>

@@ -41,8 +41,6 @@
                                     <option value="isolate"
                                         {{ request('pig_health_status') == 'isolate' ? 'selected' : '' }}>Isolated
                                     </option>
-                                    <option value="dead" {{ request('pig_health_status') == 'dead' ? 'selected' : '' }}>
-                                        Dead</option>
                                 </select>
                             </div>
 

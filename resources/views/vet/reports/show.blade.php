@@ -12,7 +12,7 @@
                     <div class="d-flex align-items-center">
 
                         <a href="{{ route('dashboard') }}" class="btn btn-primary btn-sm me-2 d-flex">
-                            <i class="bi bi-arrow-left me-2"></i><span>Back</span> 
+                            <i class="bi bi-arrow-left me-2"></i><span>Back</span>
                         </a>
                         {{-- Added Risk Level Badge --}}
                         @php
@@ -112,8 +112,7 @@
                                                     class="btn btn-sm btn-outline-success me-2" title="Download Image">
                                                     <i class="fas fa-download"></i>
                                                 </a>
-                                                <button type="button" class="btn-close"
-                                                    onclick="closeImageModal()"></button>
+                                                <button type="button" class="btn-close" onclick="closeImageModal()"></button>
                                             </div>
                                         </div>
                                         <div class="modal-body text-center">
@@ -257,7 +256,8 @@
                                         <div>
                                             <small class="text-muted">GPS Coordinates</small>
                                             <div class="fw-semibold font-monospace">{{ $report->latitude }},
-                                                {{ $report->longitude }}</div>
+                                                {{ $report->longitude }}
+                                            </div>
                                         </div>
                                         <div>
                                             <button type="button" class="btn btn-outline-success btn-sm me-2"
@@ -285,183 +285,194 @@
                     </div>
                 </div>
             </div>
+          <div class="col-lg-4">
+    <div class="sticky-top" style="top: 20px;">
 
-            <div class="col-lg-4">
-                <div class="sticky-top" style="top: 20px;">
-                    <div class="card shadow-sm mb-4 border-0">
-                        <div class="card-header bg-success text-white d-flex align-items-center">
-                            <h6 class="mb-0"><i class="fas fa-clipboard-check me-2"></i>Report Status</h6>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{ route('vet.reports.reportupdate', $report->id) }}" method="POST"> @csrf
-                                @method('PATCH')
-                                {{-- Report Status --}}
-                                <div class="mb-3">
-                                    <label class="form-label small text-secondary">Current Status</label>
-                                    <div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="report_status"
-                                                id="status_under_inspection" value="under_inspection"
-                                                {{ $report->report_status == 'under_inspection' ? 'checked' : '' }}
-                                                required>
-                                            <label class="form-check-label" for="status_under_inspection">
-                                                <i class="fas fa-search me-1 text-info"></i>For Inspection
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="report_status"
-                                                id="status_resolved" value="resolved"
-                                                {{ $report->report_status == 'resolved' ? 'checked' : '' }} required>
-                                            <label class="form-check-label" for="status_resolved">
-                                                <i class="fas fa-check-circle me-1 text-success"></i>Resolved
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn btn-success w-100">
-                                    <i class="fas fa-sync-alt me-2"></i>Update Report Status
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm mb-4 border-0">
-                        <div class="card-header bg-teal text-white d-flex align-items-center"
-                            style="background-color:#20c997;">
-                            <h6 class="mb-0"><i class="fas fa-heartbeat me-2"></i>Health Status</h6>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{ route('vet.reports.healthupdate', $report->id) }}" method="POST"> @csrf
-                                @method('PATCH')
-                                {{-- Risk Level --}}
-                                <div class="mb-3">
-                                    <label class="form-label text-secondary fw-semibold">Risk Level</label>
-                                    <div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="risk_level"
-                                                id="risk_low" value="low"
-                                                {{ $report->risk_level == 'low' ? 'checked' : '' }} required>
-                                            <label class="form-check-label" for="risk_low">
-                                                <i class="fas fa-smile text-success me-1"></i>Low
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="risk_level"
-                                                id="risk_medium" value="medium"
-                                                {{ $report->risk_level == 'medium' ? 'checked' : '' }} required>
-                                            <label class="form-check-label" for="risk_medium">
-                                                <i class="fas fa-exclamation-circle text-warning me-1"></i>Medium
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="risk_level"
-                                                id="risk_high" value="high"
-                                                {{ $report->risk_level == 'high' ? 'checked' : '' }} required>
-                                            <label class="form-check-label" for="risk_high">
-                                                <i class="fas fa-exclamation-triangle text-danger me-1"></i>High
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- Pig Health Status --}}
-                                <div class="mb-3">
-                                    <label class="form-label text-secondary fw-semibold">Pig Health Status</label>
-                                    <div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="pig_health_status"
-                                                id="health_infected" value="infected"
-                                                {{ $report->pig_health_status == 'infected' ? 'checked' : '' }} required>
-                                            <label class="form-check-label" for="health_infected">
-                                                <i class="fas fa-virus text-danger me-1"></i>Infected
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="pig_health_status"
-                                                id="health_isolate" value="isolate"
-                                                {{ $report->pig_health_status == 'isolate' ? 'checked' : '' }} required>
-                                            <label class="form-check-label" for="health_isolate">
-                                                <i class="fas fa-user-shield text-info me-1"></i>Isolate
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn btn-teal w-100 text-white"
-                                    style="background-color:#20c997;">
-                                    <i class="fas fa-sync-alt me-2"></i>Update Health Status
-                                </button>
-                            </form>
-                        </div>
-
-                    </div>
-
-                    <div class="card shadow-sm mb-4">
-                        <div class="card-header bg-info text-white">
-                            <h6 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Add Note</h6>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{ route('vet.notes.store', $report->id) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="note_type" value="vet_diagnosis">
-                                <div class="mb-3">
-                                    <label for="content" class="form-label small">Content</label>
-                                    <textarea class="form-control" id="content" name="content" rows="4"
-                                        placeholder="Enter your note or diagnosis here..." required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-info w-100">
-                                    <i class="fas fa-plus me-2"></i>Save Note
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-secondary text-white">
-                            <h6 class="mb-0">
-                                <i class="fas fa-notes-medical me-2"></i>Case Notes
-                                <span class="badge bg-light text-dark ms-2">{{ $report->notes->count() }}</span>
-                            </h6>
-                        </div>
-                        <div class="card-body p-0">
-                            @if ($report->notes->isEmpty())
-                                <div class="text-center py-4">
-                                    <i class="fas fa-clipboard text-muted" style="font-size: 2rem;"></i>
-                                    <p class="text-muted mt-2 mb-0">No notes or diagnoses yet</p>
-                                </div>
-                            @else
-                                <div class="list-group list-group-flush">
-                                    @foreach ($report->notes as $note)
-                                        <div class="list-group-item border-0">
-                                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                                <span
-                                                    class="badge bg-{{ $note->note_type == 'vet_diagnosis' ? 'success' : ($note->note_type == 'admin_review' ? 'warning' : 'info') }}">
-                                                    {{ ucfirst(str_replace('_', ' ', $note->note_type)) }}
-                                                </span>
-                                                <small class="text-muted">{{ $note->created_at->diffForHumans() }}</small>
-                                            </div>
-                                            <p class="mb-2 small">{{ $note->content }}</p>
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-light rounded-circle p-1 me-2"
-                                                    style="width: 20px; height: 20px;">
-                                                    <i class="fas fa-user-md text-success" style="font-size: 10px;"></i>
-                                                </div>
-                                                <small class="text-muted">{{ $note->user->name }}</small>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
-                    </div>
+        {{-- If report is resolved, show a message --}}
+        @if ($report->report_status == 'resolved')
+            <div class="card shadow-sm mb-4 border-0">
+                <div class="card-body text-center">
+                    <h5 class="text-success mb-0">
+                        <i class="fas fa-check-circle me-2"></i>This report is resolved
+                    </h5>
                 </div>
             </div>
+        @else
+            {{-- Show these only if NOT resolved --}}
+            <div class="card shadow-sm mb-4 border-0">
+                <div class="card-header bg-success text-white d-flex align-items-center">
+                    <h6 class="mb-0"><i class="fas fa-clipboard-check me-2"></i>Report Status</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('vet.reports.reportupdate', $report->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        {{-- Report Status --}}
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary">Current Status</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="report_status"
+                                        id="status_under_inspection" value="under_inspection"
+                                        {{ $report->report_status == 'under_inspection' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="status_under_inspection">
+                                        <i class="fas fa-search me-1 text-info"></i>For Inspection
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="report_status"
+                                        id="status_resolved" value="resolved"
+                                        {{ $report->report_status == 'resolved' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="status_resolved">
+                                        <i class="fas fa-check-circle me-1 text-success"></i>Resolved
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="fas fa-sync-alt me-2"></i>Update Report Status
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-4 border-0">
+                <div class="card-header bg-teal text-white d-flex align-items-center" style="background-color:#20c997;">
+                    <h6 class="mb-0"><i class="fas fa-heartbeat me-2"></i>Health Status</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('vet.reports.healthupdate', $report->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        {{-- Risk Level --}}
+                        <div class="mb-3">
+                            <label class="form-label text-secondary fw-semibold">Risk Level</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="risk_level"
+                                        id="risk_low" value="low"
+                                        {{ $report->risk_level == 'low' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="risk_low">
+                                        <i class="fas fa-smile text-success me-1"></i>Low
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="risk_level"
+                                        id="risk_medium" value="medium"
+                                        {{ $report->risk_level == 'medium' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="risk_medium">
+                                        <i class="fas fa-exclamation-circle text-warning me-1"></i>Medium
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="risk_level"
+                                        id="risk_high" value="high"
+                                        {{ $report->risk_level == 'high' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="risk_high">
+                                        <i class="fas fa-exclamation-triangle text-danger me-1"></i>High
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Pig Health Status --}}
+                        <div class="mb-3">
+                            <label class="form-label text-secondary fw-semibold">Pig Health Status</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pig_health_status"
+                                        id="health_infected" value="infected"
+                                        {{ $report->pig_health_status == 'infected' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="health_infected">
+                                        <i class="fas fa-virus text-danger me-1"></i>Infected
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pig_health_status"
+                                        id="health_isolate" value="isolate"
+                                        {{ $report->pig_health_status == 'isolate' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="health_isolate">
+                                        <i class="fas fa-user-shield text-info me-1"></i>Isolate
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-teal w-100 text-white" style="background-color:#20c997;">
+                            <i class="fas fa-sync-alt me-2"></i>Update Health Status
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @endif
+
+        {{-- These sections are always visible --}}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Add Note</h6>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('vet.notes.store', $report->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="note_type" value="vet_diagnosis">
+                    <div class="mb-3">
+                        <label for="content" class="form-label small">Content</label>
+                        <textarea class="form-control" id="content" name="content" rows="4"
+                            placeholder="Enter your note or diagnosis here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-info w-100">
+                        <i class="fas fa-plus me-2"></i>Save Note
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-secondary text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-notes-medical me-2"></i>Case Notes
+                    <span class="badge bg-light text-dark ms-2">{{ $report->notes->count() }}</span>
+                </h6>
+            </div>
+            <div class="card-body p-0">
+                @if ($report->notes->isEmpty())
+                    <div class="text-center py-4">
+                        <i class="fas fa-clipboard text-muted" style="font-size: 2rem;"></i>
+                        <p class="text-muted mt-2 mb-0">No notes or diagnoses yet</p>
+                    </div>
+                @else
+                    <div class="list-group list-group-flush">
+                        @foreach ($report->notes as $note)
+                            <div class="list-group-item border-0">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <span
+                                        class="badge bg-{{ $note->note_type == 'vet_diagnosis' ? 'success' : ($note->note_type == 'admin_review' ? 'warning' : 'info') }}">
+                                        {{ ucfirst(str_replace('_', ' ', $note->note_type)) }}
+                                    </span>
+                                    <small class="text-muted">{{ $note->created_at->diffForHumans() }}</small>
+                                </div>
+                                <p class="mb-2 small">{{ $note->content }}</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded-circle p-1 me-2" style="width: 20px; height: 20px;">
+                                        <i class="fas fa-user-md text-success" style="font-size: 10px;"></i>
+                                    </div>
+                                    <small class="text-muted">{{ $note->user->name }}</small>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
         </div>
     </div>
 
     @if ($report->latitude && $report->longitude)
-        <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -512,11 +523,11 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             let locationMap;
 
             // Initialize location map when modal is shown
-            document.getElementById('locationModal')?.addEventListener('shown.bs.modal', function() {
+            document.getElementById('locationModal')?.addEventListener('shown.bs.modal', function () {
                 if (!locationMap) {
                     const lat = {{ $report->latitude ?? 'null' }};
                     const lng = {{ $report->longitude ?? 'null' }};
@@ -536,12 +547,12 @@
 
                         // Add popup with report info
                         marker.bindPopup(`
-                        <div class="text-center">
-                            <strong>Report #{{ $report->report_id }}</strong><br>
-                            <small class="text-muted">{{ $report->barangay }}, {{ $report->city }}</small><br>
-                            <small class="text-muted">{{ $report->province }}</small>
-                        </div>
-                    `).openPopup();
+                            <div class="text-center">
+                                <strong>Report #{{ $report->report_id }}</strong><br>
+                                <small class="text-muted">{{ $report->barangay }}, {{ $report->city }}</small><br>
+                                <small class="text-muted">{{ $report->province }}</small>
+                            </div>
+                        `).openPopup();
 
                         // Add circle to show approximate area
                         L.circle([lat, lng], {
@@ -560,7 +571,7 @@
             });
 
             // Image modal functions
-            window.openImageModal = function(imageSrc, imageNumber) {
+            window.openImageModal = function (imageSrc, imageNumber) {
                 const modal = document.getElementById('imageModal');
                 const modalImage = document.getElementById('modalImage');
                 const modalTitle = document.getElementById('imageModalLabel');
@@ -592,7 +603,7 @@
                 document.addEventListener('keydown', handleEscapeKey);
             };
 
-            window.closeImageModal = function() {
+            window.closeImageModal = function () {
                 const modal = document.getElementById('imageModal');
                 const backdrop = document.getElementById('modal-backdrop');
 
@@ -618,7 +629,7 @@
             }
 
             // Copy coordinates function
-            window.copyCoordinates = function(coordinates) {
+            window.copyCoordinates = function (coordinates) {
                 if (navigator.clipboard) {
                     navigator.clipboard.writeText(coordinates).then(() => {
                         showAlert('Coordinates copied to clipboard!', 'success');
@@ -656,9 +667,9 @@
                     `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
                 alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
                 alertDiv.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
-        `;
+                ${message}
+                <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+            `;
                 document.body.appendChild(alertDiv);
 
                 setTimeout(() => {

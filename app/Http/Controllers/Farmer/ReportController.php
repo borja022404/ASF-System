@@ -20,8 +20,13 @@ class ReportController extends Controller
      */
     public function create()
     {
-        // Group symptoms by risk level for selection UI
-        $symptoms = Symptom::all()->groupBy('risk_level');
+        // Group symptoms by risk_level
+        $symptoms = [
+            'low' => Symptom::where('risk_level', 'low')->get(),
+            'medium' => Symptom::where('risk_level', 'medium')->get(),
+            'high' => Symptom::where('risk_level', 'high')->get(),
+        ];
+
         return view('farmer.reports.create', compact('symptoms'));
     }
 
@@ -93,7 +98,7 @@ class ReportController extends Controller
                 }
             }
 
-           
+
 
             // Notify Vets
             $vets = User::whereHas('roles', fn($q) => $q->where('name', 'vet'))->get();
@@ -225,22 +230,23 @@ class ReportController extends Controller
     }
 
 
-     public function resolved()
+    public function resolved()
     {
         $resolved = Report::where('report_status', 'resolved')->latest()->get();
         return view('farmer.reports.resolved', compact('resolved'));
     }
 
 
-     public function submitted()
+    public function submitted()
     {
-        $submitted = Report::where('report_status', 'submitted')->latest()->get();
+        $user = Auth::user();
+        $submitted = $user->reports()->where('report_status', 'submitted')->latest()->get();
         return view('farmer.reports.submitted', compact('submitted'));
     }
 
 
-    
-     public function inspection()
+
+    public function inspection()
     {
         $inspection = Report::where('report_status', 'under_inspection')->latest()->get();
         return view('farmer.reports.inspection', compact('inspection'));
