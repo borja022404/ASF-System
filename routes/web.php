@@ -101,9 +101,9 @@ Route::prefix('farmer')->name('farmer.')->middleware('can:farmer-access')->group
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
         Route::get('/', 'index')->name('index');
-        Route::get('farmer/resolved', 'resolved')->name('resolved');
-        Route::get('farmer/submitted', 'submitted')->name('submitted');
-        Route::get('farmer/inspection', 'inspection')->name('inspection');
+        Route::get('/resolved', 'resolved')->name('resolved');
+        Route::get('/submitted', 'submitted')->name('submitted');
+        Route::get('/inspection', 'inspection')->name('inspection');
         Route::get('/{report}', 'show')->name('show');
         Route::get('/{report}/edit', 'edit')->name('edit');
         Route::patch('/{report}', 'update')->name('update');
