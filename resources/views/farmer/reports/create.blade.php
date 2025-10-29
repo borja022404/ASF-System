@@ -479,15 +479,11 @@
                     if (previewContainer) {
                         previewContainer.innerHTML = '';
 
-                        if (files.length > 5) {
-                            showAlert('Maximum 5 images allowed.', 'warning');
-                            this.value = '';
-                            return;
-                        }
+    
 
                         Array.from(files).forEach((file, index) => {
-                            if (file.size > 2 * 1024 * 1024) { // 2MB limit
-                                showAlert(`File "${file.name}" is too large. Maximum size is 2MB.`,
+                            if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                                showAlert(`File "${file.name}" is too large. Maximum size is 5MB.`,
                                     'warning');
                                 return;
                             }
