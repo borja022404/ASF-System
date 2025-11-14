@@ -4,6 +4,17 @@
 <div class="main-content">
     <h3>Database Backups</h3>
 
+    {{-- Two-level backup explanation for users --}}
+    <div class="alert alert-info small">
+        <strong>Backup strategy (two-level)</strong>
+        <div class="mt-1">We protect your data with two backup levels so you always have a recent copy and an option to keep an offsite archive:</div>
+        <ol class="mb-0 mt-1">
+            <li><strong>Automatic monthly backup (Primary):</strong> the system automatically creates a database dump every month and stores it on the server. This gives you a regularly updated primary copy without manual action.</li>
+            <li><strong>Manual download (Secondary):</strong> you can create and download a backup on demand by clicking <em>Create Manual Backup</em>. Downloaded files are yours to store offsite (external drive, cloud storage, etc.) for extra protection and faster recovery.</li>
+        </ol>
+        <div class="mt-1">Recommendation: rely on the automatic monthly backups for regular protection, and periodically download important backups to keep an offsite copy.</div>
+    </div>
+
     <div id="alert-area"></div>
 
     <button id="backupBtn" class="btn btn-primary mb-3">

@@ -5,6 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property string $report_id
+ * @property string $pig_health_status
+ * @property string $symptoms_description
+ * @property int|null $num_mortality
+ * @property string $symptom_onset_date
+ * @property string|null $mortality_date
+ * @property int $affected_pig_count
+ * @property string $report_status
+ * @property string $risk_level
+ * @property string|null $location_name
+ * @property string $barangay
+ * @property string $city
+ * @property string $province
+ * @property float|null $latitude
+ * @property float|null $longitude
+ * @property bool $is_read_by_staff
+ */
 class Report extends Model
 {
     use HasFactory;

@@ -241,14 +241,6 @@
                                 <small class="text-muted">Barangay</small>
                                 <div class="fw-semibold">{{ $report->barangay }}</div>
                             </div>
-                            <div class="col-md-4">
-                                <small class="text-muted">City</small>
-                                <div class="fw-semibold">{{ $report->city }}</div>
-                            </div>
-                            <div class="col-md-4">
-                                <small class="text-muted">Province</small>
-                                <div class="fw-semibold">{{ $report->province }}</div>
-                            </div>
                             @if ($report->latitude && $report->longitude)
                                 <div class="col-12 d-flex justify-content-between align-items-center">
                                     <div>

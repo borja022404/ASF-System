@@ -195,26 +195,11 @@
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-4 mb-4">
-                            <label for="city" class="form-label fw-semibold">City/Municipality <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('city') is-invalid @enderror" id="city"
-                                name="city" value="{{ old('city') }}" required>
-                            @error('city')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <label for="province" class="form-label fw-semibold">Province <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('province') is-invalid @enderror" id="province"
-                                name="province" value="{{ old('province') }}" required>
-                            @error('province')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                        </div>
                     </div>
 
+                    {{-- Hidden inputs for city and province --}}
+                    <input type="hidden" name="city" value="Allacapan">
+                    <input type="hidden" name="province" value="Cagayan">
                     <input type="hidden" name="latitude" id="latitude" value="{{ old('latitude') }}" required>
                     <input type="hidden" name="longitude" id="longitude" value="{{ old('longitude') }}" required>
 

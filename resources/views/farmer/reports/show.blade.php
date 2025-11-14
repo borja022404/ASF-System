@@ -86,9 +86,9 @@
 
                 <!-- Location -->
                 <h5 class="fw-bold mb-3"><i class="bi bi-geo-alt me-2"></i> Location</h5>
-                <p>{{ $report->barangay }}, {{ $report->city }}, {{ $report->province }}</p>
+                <p>{{ $report->barangay }}</p>
                 @if ($report->latitude && $report->longitude)
-                    <p class="text-muted">Coordinates: {{ $report->latitude }}, {{ $report->longitude }}</p>
+                    <p class="text-muted"><strong>GPS Coordinates:</strong> {{ $report->latitude }}, {{ $report->longitude }}</p>
                 @endif
 
                 <hr>
